@@ -61,6 +61,10 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
+    @property
+    def products_in_list(self):
+        return self.__products
+
 
 # if __name__ == "__main__":
 #     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
