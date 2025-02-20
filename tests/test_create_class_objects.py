@@ -49,10 +49,11 @@ def test_create_objects_from_json(json_data):
     assert smartphones_category.description == ('Смартфоны, как средство не только коммуникации, '
                                                 'но и получение дополнительных функций для '
                                                 'удобства жизни')
-    assert len(smartphones_category.products) == 3
+
+    assert len(smartphones_category.products.strip().split("\n")) == 3
 
     # Проверяем первый продукт первой категории
-    samsung_product = smartphones_category.products[0]
+    samsung_product = smartphones_category.products_in_list[0]
     assert isinstance(samsung_product, Product)
     assert samsung_product.name == 'Samsung Galaxy C23 Ultra'
     assert samsung_product.description == '256GB, Серый цвет, 200MP камера'

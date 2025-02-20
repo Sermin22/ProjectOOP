@@ -22,6 +22,7 @@ def create_objects_from_json(data):
             products.append(Product(**key_products))
         key_data["products"] = products
         categories.append(Category(**key_data))
+
     return categories
 
 
