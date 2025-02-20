@@ -1,3 +1,4 @@
+import pytest
 from src.product_and_category import Category, Product
 from tests.conftest import reset_category_counts
 
@@ -89,3 +90,39 @@ def test_get_products(category1):
     assert "Samsung Galaxy S23 Ultra" in products_string
     assert "Iphone 15" in products_string
     assert "Xiaomi Redmi Note 11" in products_string
+
+
+def test_product_str(product1):
+    """Для класса Product проверяет строковое отображение метода __str__"""
+    assert str(product1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_products_str(category1):
+    """Проверка вывода в Category списка продуктов в виде строки."""
+    assert category1.products == ("Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+                                  "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+                                  "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n")
+
+
+def test_category_str(category1):
+    """Для класса Category проверяет строковое отображение метода __str__ и
+    проверку предварительного подсчета количества продуктов, которое считается из общего
+    числа всех продуктов на складе"""
+    assert str(category1) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_sum_add_product(product1, product2, product3):
+    """ Проверка магического метода __add__ для сложения товаров, который
+        возвращает общую стоимость всех товаров на складе."""
+    assert product1 + product2 == "Общая стоимость товаров: 2580000.00 руб."
+    assert product1 + product3 == "Общая стоимость товаров: 1334000.00 руб."
+    assert product2 + product3 == "Общая стоимость товаров: 2114000.00 руб."
+
+
+def test_object_isinstance_class(product1):
+    '''Проверка на исключение, является ли другой объект экземпляром класса Product'''
+    with pytest.raises(TypeError):
+        assert product1 + 2 == ("Невозможно сложить объекты разных типов: <class '__main__.Product'> "
+                                "и <class 'int'>.")
+        assert product1 + "2" == ("Невозможно сложить объекты разных типов: <class '__main__.Product'> "
+                                  "и <class 'str'>.")
