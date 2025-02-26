@@ -119,6 +119,14 @@ def test_sum_add_product(product1, product2, product3):
     assert product2 + product3 == "Общая стоимость товаров: 2114000.00 руб."
 
 
+def test_add_product_error(category1):
+    """ Проверка исключения TypeError, которое вызывает метод add_product для добавления
+    товаров в категорию, если передан неверный тип аргумента."""
+    with pytest.raises(TypeError):
+        product = "product"
+        assert category1.add_product(product) == "Неверный тип аргумента '{type.__name__}'"
+
+
 def test_object_isinstance_class(product1):
     '''Проверка на исключение, является ли другой объект экземпляром класса Product'''
     with pytest.raises(TypeError):
