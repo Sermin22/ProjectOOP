@@ -1,5 +1,6 @@
 import pytest
 from src.product_and_category import Product, Category
+from src.products_iterator import ProductsIterator
 
 
 @pytest.fixture
@@ -139,3 +140,8 @@ def json_data():
             ]
         }
     ]
+
+
+@pytest.fixture
+def prod_iterator(category1):
+    return ProductsIterator(category1)
