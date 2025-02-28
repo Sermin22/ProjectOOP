@@ -46,7 +46,8 @@ class Product:
             total_cost = self.price * self.quantity + other.price * other.quantity
             # Выводим результат как строку, представляющую общую стоимость
             return f"Общая стоимость товаров: {total_cost:.2f} руб."
-        raise TypeError(f"Невозможно сложить объекты разных типов: {type(self)} и {type(other)}.")
+        else:
+            raise TypeError(f"Невозможно сложить объекты разных типов: {type(self)} и {type(other)}.")
 
 
 class Category:
@@ -77,8 +78,11 @@ class Category:
 
     def add_product(self, product: Product):
         """Добавление нового товара в категорию."""
-        self.__products.append(product)
-        Category.product_count += 1
+        if isinstance(product, Product) or issubclass(type(product), Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError(f"Неверный тип аргумента '{type.__name__}'")
 
     @property
     def products_in_list(self):
