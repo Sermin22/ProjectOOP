@@ -79,6 +79,11 @@ def category2(product4):
 
 
 @pytest.fixture
+def category_empty():
+    return Category("Пустая категория", "Категория без продуктов", [])
+
+
+@pytest.fixture
 def mock_data():
     """Фикстура для создания тестовых данных"""
     data = [

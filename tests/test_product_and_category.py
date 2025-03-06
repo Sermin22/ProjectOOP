@@ -1,4 +1,6 @@
 import pytest
+
+
 from src.product_and_category import Category, Product
 from tests.conftest import reset_category_counts
 
@@ -134,3 +136,36 @@ def test_object_isinstance_class(product1):
                                 "и <class 'int'>.")
         assert product1 + "2" == ("Невозможно сложить объекты разных типов: <class '__main__.Product'> "
                                   "и <class 'str'>.")
+
+
+def test_create_product_zero_quantity_error():
+    """Проверяем, что если пользователь создает товар (метод init__) с нулевым количеством, то
+    вызывается исключение ValueError"""
+    with pytest.raises(ValueError):
+        Product(
+            name="Samsung Galaxy S23 Ultra",
+            description="256GB, Серый цвет, 200MP камера",
+            price=180000.0,
+            quantity=0
+        )
+
+
+def test_create_product_zero_quantity_error_message():
+    """Проверка, что при возникновении исключения ValueError (при количестве товара равному нулю)
+    выдается соответствующее сообщение"""
+    try:
+        Product(
+            name="Samsung Galaxy S23 Ultra",
+            description="256GB, Серый цвет, 200MP камера",
+            price=180000.0,
+            quantity=0
+        )
+    except ValueError as e:
+        assert str(e) == "Товар с нулевым количеством не может быть добавлен"
+
+
+def test_middle_price(category1, category_empty):
+    """Тест на проверку метода, подсчитывающего среднюю цену всех товаров в категории,
+    в том числе и обработку исключения, если список товаров в категории пустой"""
+    assert category1.middle_price() == 140333.33
+    assert category_empty.middle_price() == 0
